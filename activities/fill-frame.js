@@ -44,11 +44,13 @@ window.FillFrame = {
       container.querySelectorAll('.choice-btn').forEach(btn => {
         btn.onclick = () => handleChoice(+btn.dataset.val, answer, given, target, btn);
       });
+      speak("How many more gems do we need to make " + target + "?");
     }
 
     function handleChoice(val, answer, given, target, btn) {
       if (val === answer) {
         playSound('correct', 'triangle');
+        speakEncourage('correct');
         btn.classList.add('correct');
         container.querySelectorAll('.choice-btn').forEach(b => b.disabled = true);
 
@@ -84,6 +86,7 @@ window.FillFrame = {
       } else {
         mistakes++;
         playSound('wrong', 'triangle');
+        speakEncourage('wrong');
         btn.classList.add('wrong');
         setTimeout(() => btn.classList.remove('wrong'), 500);
       }

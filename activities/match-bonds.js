@@ -16,6 +16,8 @@ window.MatchBonds = {
     });
     shuffle(cards);
 
+    speak("Match the numbers that add up to " + target + "!");
+
     function render() {
       const gridCols = cards.length <= 8 ? 4 : 5;
       const cardsHtml = cards.map((c, i) => {
@@ -63,6 +65,7 @@ window.MatchBonds = {
 
       if (a + b === target) {
         playSound('correct', 'triangle');
+        speakEncourage('correct');
         cards[prevIdx].matched = true;
         cards[idx].matched = true;
         render();
@@ -73,6 +76,7 @@ window.MatchBonds = {
       } else {
         mistakes++;
         playSound('wrong', 'triangle');
+        speakEncourage('wrong');
         // Flash wrong on both
         const prevEl = container.querySelector(`[data-idx="${prevIdx}"]`);
         [prevEl, el].forEach(e => {

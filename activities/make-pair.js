@@ -42,11 +42,16 @@ window.MakePair = {
       container.querySelectorAll('.choice-btn').forEach(btn => {
         btn.onclick = () => handleChoice(+btn.dataset.val, answer, btn);
       });
+      const prompt = missing === 'first'
+        ? "Which number goes with " + a + " to make " + target + "?"
+        : "What do we add to " + a + " to make " + target + "?";
+      speak(prompt);
     }
 
     function handleChoice(val, answer, btn) {
       if (val === answer) {
         playSound('correct', 'sine');
+        speakEncourage('correct');
         btn.classList.add('correct');
         container.querySelectorAll('.choice-btn').forEach(b => b.disabled = true);
 
@@ -65,6 +70,7 @@ window.MakePair = {
       } else {
         mistakes++;
         playSound('wrong', 'sine');
+        speakEncourage('wrong');
         btn.classList.add('wrong');
         setTimeout(() => btn.classList.remove('wrong'), 500);
       }

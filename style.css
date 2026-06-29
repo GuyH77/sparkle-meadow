@@ -169,6 +169,36 @@ html, body {
 .level-lock  { font-size: 1.6rem; }
 .level-bond  { font-size: 0.75rem; color: #A78BFA; font-weight: 800; }
 
+/* ====== UNICORN CORNER ====== */
+#uni-corner {
+  position: fixed;
+  bottom: 14px;
+  right: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  z-index: 200;
+  pointer-events: none;
+}
+#uni-img { width: 72px; height: 72px; filter: drop-shadow(0 3px 8px rgba(0,0,0,0.18)); }
+#uni-bubble {
+  position: relative;
+  background: #fff;
+  border-radius: 18px 18px 4px 18px;
+  padding: 10px 14px;
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
+  font-weight: 800;
+  color: #7C3AED;
+  max-width: min(220px, 55vw);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.14);
+  opacity: 0;
+  transform: scale(0.75) translateY(8px);
+  transform-origin: bottom right;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+#uni-bubble.visible { opacity: 1; transform: scale(1) translateY(0); }
+
 /* ====== ACTIVITY SCREEN ====== */
 .screen-activity {
   display: flex;

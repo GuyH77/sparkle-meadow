@@ -16,6 +16,7 @@ window.PlaceValue = {
       let tens = 0;
       let ones = 0;
 
+      speak("How do you make " + n + " using tens and ones?");
       function render(feedback) {
         const wandsHtml = Array.from({length: tens}, () =>
           `<div class="pv-wand"></div>`
@@ -59,6 +60,7 @@ window.PlaceValue = {
         container.querySelector('#check').onclick = () => {
           if (tens * 10 + ones === n) {
             playSound('correct', 'sine');
+            speakEncourage('correct');
             render(`✅ Yes! ${tens} tens and ${ones} ones = ${n}!`);
             container.querySelector('#check').disabled = true;
             setTimeout(() => {
@@ -69,6 +71,7 @@ window.PlaceValue = {
           } else {
             mistakes++;
             playSound('wrong', 'sine');
+            speakEncourage('wrong');
             render(`Not quite — ${tens} tens and ${ones} ones = ${tens*10+ones}. Try again! 🌟`);
           }
         };

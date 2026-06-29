@@ -142,6 +142,33 @@ function clearLevelTheme() {
   window.gameLevel = null;
 }
 
+// ====== SPEECH ======
+window.speak = function(text) {
+  try {
+    const synth = window.speechSynthesis;
+    if (!synth) return;
+    synth.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.rate = 0.88; u.pitch = 1.15; u.lang = 'en-GB';
+    synth.speak(u);
+  } catch {}
+  const bubble = document.getElementById('uni-bubble');
+  if (!bubble) return;
+  bubble.textContent = text;
+  bubble.classList.add('visible');
+  clearTimeout(bubble._t);
+  bubble._t = setTimeout(() => bubble.classList.remove('visible'), 3800);
+};
+
+const _encourage = {
+  correct: ['Amazing! ⭐', "You're a star! 🌟", 'Well done! 🎉', 'Brilliant! ✨', "That's right! 💫"],
+  wrong:   ['Try again! 💪', 'Almost there! 🌟', 'Have another go! ✨', 'You can do it! 🦄'],
+};
+window.speakEncourage = function(type) {
+  const arr = _encourage[type] || _encourage.correct;
+  speak(arr[Math.floor(Math.random() * arr.length)]);
+};
+
 // ====== SOUND ======
 window.playSound = function(type, voice) {
   try {
@@ -350,6 +377,10 @@ function showActivity({ levelId, actIdx }) {
         <div class="act-dots">${dots}</div>
       </div>
       <div class="act-main" id="act-main"></div>
+      <div id="uni-corner">
+        <div id="uni-bubble"></div>
+        <img src="assets/unicorn.svg" id="uni-img" alt="Sparkle">
+      </div>
     </div>`;
 
   app.querySelector('#btn-map').onclick = () => navigate('levels');
