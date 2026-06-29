@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220">
+  <defs>
+    <radialGradient id="bodyGrad" cx="45%" cy="40%">
+      <stop offset="0%" stop-color="#F5D0FE"/>
+      <stop offset="100%" stop-color="#E879F9"/>
+    </radialGradient>
+    <linearGradient id="hornGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FDE68A"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <linearGradient id="mane1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#C084FC"/>
+      <stop offset="100%" stop-color="#F9A8D4"/>
+    </linearGradient>
+    <linearGradient id="mane2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FCD34D"/>
+      <stop offset="100%" stop-color="#C084FC"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Mane left -->
+  <ellipse cx="32" cy="105" rx="26" ry="50" fill="url(#mane1)" opacity="0.9"/>
+  <ellipse cx="22" cy="110" rx="18" ry="40" fill="#F9A8D4" opacity="0.8"/>
+
+  <!-- Mane right -->
+  <ellipse cx="168" cy="105" rx="26" ry="50" fill="url(#mane2)" opacity="0.9"/>
+  <ellipse cx="178" cy="110" rx="18" ry="40" fill="#C084FC" opacity="0.8"/>
+
+  <!-- Ears -->
+  <ellipse cx="62" cy="62" rx="18" ry="24" fill="#F0ABFC" transform="rotate(-12,62,62)"/>
+  <ellipse cx="62" cy="65" rx="11" ry="16" fill="#F9A8D4" transform="rotate(-12,62,65)"/>
+  <ellipse cx="138" cy="62" rx="18" ry="24" fill="#F0ABFC" transform="rotate(12,138,62)"/>
+  <ellipse cx="138" cy="65" rx="11" ry="16" fill="#F9A8D4" transform="rotate(12,138,65)"/>
+
+  <!-- Horn -->
+  <polygon points="100,8 90,62 110,62" fill="url(#hornGrad)"/>
+  <line x1="93" y1="38" x2="107" y2="38" stroke="#FBBF24" stroke-width="2.5" opacity="0.7"/>
+  <line x1="91" y1="47" x2="109" y2="47" stroke="#FDE68A" stroke-width="2" opacity="0.6"/>
+  <line x1="92" y1="55" x2="108" y2="55" stroke="#F59E0B" stroke-width="2" opacity="0.6"/>
+
+  <!-- Head -->
+  <ellipse cx="100" cy="130" rx="72" ry="78" fill="url(#bodyGrad)"/>
+
+  <!-- Eyes -->
+  <ellipse cx="72" cy="122" rx="17" ry="20" fill="white"/>
+  <ellipse cx="128" cy="122" rx="17" ry="20" fill="white"/>
+  <circle cx="75" cy="124" r="11" fill="#3B1A6B"/>
+  <circle cx="131" cy="124" r="11" fill="#3B1A6B"/>
+  <!-- Pupils + shine -->
+  <circle cx="78" cy="121" r="4.5" fill="white"/>
+  <circle cx="134" cy="121" r="4.5" fill="white"/>
+  <!-- Eyelashes -->
+  <line x1="58" y1="108" x2="54" y2="103" stroke="#6B21A8" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="65" y1="105" x2="63" y2="99" stroke="#6B21A8" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="73" y1="104" x2="72" y2="98" stroke="#6B21A8" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="142" y1="108" x2="146" y2="103" stroke="#6B21A8" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="135" y1="105" x2="137" y2="99" stroke="#6B21A8" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="127" y1="104" x2="128" y2="98" stroke="#6B21A8" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Nose area -->
+  <ellipse cx="100" cy="163" rx="26" ry="16" fill="#E879F9" opacity="0.25"/>
+  <ellipse cx="89"  cy="160" rx="6" ry="4" fill="#C026D3" opacity="0.35"/>
+  <ellipse cx="111" cy="160" rx="6" ry="4" fill="#C026D3" opacity="0.35"/>
+  <!-- Smile -->
+  <path d="M84 173 Q100 186 116 173" stroke="#9333EA" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Cheek blush -->
+  <ellipse cx="48"  cy="142" rx="20" ry="13" fill="#F9A8D4" opacity="0.45"/>
+  <ellipse cx="152" cy="142" rx="20" ry="13" fill="#F9A8D4" opacity="0.45"/>
+
+  <!-- Sparkles -->
+  <text x="148" y="78"  font-size="18" opacity="0.9">✨</text>
+  <text x="18"  y="72"  font-size="14" opacity="0.8">⭐</text>
+  <text x="158" y="175" font-size="13" opacity="0.7">💫</text>
+</svg>
