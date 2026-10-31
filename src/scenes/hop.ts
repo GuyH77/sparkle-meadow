@@ -1,10 +1,9 @@
 import Phaser from 'phaser';
-import { Fact, stage } from '../engine';
+import { Fact, SKILLS, stage } from '../engine';
 import { RoundScene } from '../round';
 import { save, say, sfx, text, W } from '../ui';
 
-const X0 = 200, STEP = 120, LINE_Y = 600;
-const stoneX = (n: number) => X0 + n * STEP;
+const LINE_Y = 600;
 
 /**
  * Pet Hop: the pet hops along stepping stones numbered 0-10.
@@ -26,20 +25,25 @@ export class HopScene extends RoundScene {
   }
 
   ask([t, a]: Fact) {
+    // 0-10 line, or 0-20 (smaller stones) when the skill goes past ten
+    const max = SKILLS[this.cfg.skill].facts.some(f => f[0] > 10) ? 20 : 10;
+    const STEP = max === 20 ? 66 : 120, X0 = W / 2 - (max * STEP) / 2, k = max === 20 ? 0.6 : 1;
+    const stoneX = (n: number) => X0 + n * STEP;
     const add = this.cfg.mode !== 'sub';
     const start = add ? a : t, hops = add ? t - a : a, land = add ? t : t - a, dir = add ? 1 : -1;
     const st = stage(save, t, a), L = this.layer;
 
     const line = this.add.container(0, 0);
     L.add(line);
-    for (let n = 0; n <= 10; n++) {
-      line.add(this.add.ellipse(stoneX(n), LINE_Y + 10, 104, 46, 0x000000, 0.18));
-      line.add(this.add.ellipse(stoneX(n), LINE_Y, 104, 50, 0xd9d2c3).setStrokeStyle(5, 0xa89f8c));
-      line.add(text(this, stoneX(n), LINE_Y + 70, String(n), 52));
+    for (let n = 0; n <= max; n++) {
+      line.add(this.add.ellipse(stoneX(n), LINE_Y + 10, 104 * k, 46, 0x000000, 0.18));
+      // stones 0-10 grey, 11-20 sandy, so ten stands out
+      line.add(this.add.ellipse(stoneX(n), LINE_Y, 104 * k, 50, n > 10 ? 0xe8d6b0 : 0xd9d2c3).setStrokeStyle(5, n === 10 ? 0xf2b705 : 0xa89f8c));
+      line.add(text(this, stoneX(n), LINE_Y + 70, String(n), 52 * Math.max(k, 0.75)));
     }
     this.hopper?.destroy();
     const h = this.hopper = this.add.image(stoneX(start), LINE_Y - 10, `pet-${save.pet ?? 'fox'}`).setOrigin(0.5, 1).setDepth(20);
-    h.setScale(170 / h.height).setFlipX(!add);
+    h.setScale((max === 20 ? 130 : 170) / h.height).setFlipX(!add);
     let at = start;
 
     const arcs = this.add.graphics().setDepth(15);
@@ -47,7 +51,7 @@ export class HopScene extends RoundScene {
     const drawArc = (from: number) => {
       arcs.lineStyle(6, 0xffd34d);
       const c = new Phaser.Curves.QuadraticBezier(new Phaser.Math.Vector2(stoneX(from), LINE_Y - 30),
-        new Phaser.Math.Vector2((stoneX(from) + stoneX(from + dir)) / 2, LINE_Y - 150), new Phaser.Math.Vector2(stoneX(from + dir), LINE_Y - 30));
+        new Phaser.Math.Vector2((stoneX(from) + stoneX(from + dir)) / 2, LINE_Y - 150 * k), new Phaser.Math.Vector2(stoneX(from + dir), LINE_Y - 30));
       c.draw(arcs);
     };
     const hopOnce = () => new Promise<void>(res => {
@@ -62,7 +66,7 @@ export class HopScene extends RoundScene {
     if (st === 2) { line.setAlpha(0.15); h.setAlpha(0); sum = text(this, W / 2, 330, `${start} ${add ? '+' : '−'} ${hops} = ?`, 140); L.add(sum); }
 
     const showCards = (prompt?: string) => this.options({
-      fact: [t, a], answer: land, max: 10, count: st === 2 ? 4 : 3, y: 860, prompt,
+      fact: [t, a], answer: land, max, count: st === 2 ? 4 : 3, y: 860, prompt,
       also: [start, land - dir], rightLine: add ? `add_${t}_${a}` : `sub_${t}_${a}`, hintLine: 'hop_hint',
       hint: () => {
         sum?.setY(200);

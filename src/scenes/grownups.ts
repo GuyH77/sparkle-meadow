@@ -78,12 +78,39 @@ export class GrownupsScene extends Phaser.Scene {
     weak.forEach(([k], i) => { const [t, a] = k.split(':').map(Number); this.label(wx, 290 + i * 50, `${a} + ${t - a} = ${t}`, 32, '#b04a3a'); });
     if (!weak.length) this.label(wx, 290, 'Nothing yet', 28, '#a59a8c');
 
-    const soundBtn = this.button(wx, 620, save.muted ? '🔇 Sound off' : '🔊 Sound on', () => {
+    const LIMITS = [0, 10, 15, 20, 30];
+    const limitLabel = () => (save.limitMin ? `⏱️ Rest after ${save.limitMin} min` : '⏱️ No time limit');
+    const limitBtn = this.button(wx, 540, limitLabel(), () => {
+      save.limitMin = LIMITS[(LIMITS.indexOf(save.limitMin) + 1) % LIMITS.length]; commit();
+      limitBtn.setText(limitLabel());
+    });
+    const soundBtn = this.button(wx, 625, save.muted ? '🔇 Sound off' : '🔊 Sound on', () => {
       save.muted = !save.muted; this.sound.mute = save.muted; commit();
       soundBtn.setText(save.muted ? '🔇 Sound off' : '🔊 Sound on');
     });
+    this.button(wx, 710, '💾 Save a backup', () => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([JSON.stringify(save)], { type: 'application/json' }));
+      a.download = `sanctuary-backup-${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+    const importBtn = this.button(wx, 795, '📂 Load a backup', () => {
+      const input = document.createElement('input');
+      input.type = 'file'; input.accept = '.json,application/json';
+      input.onchange = async () => {
+        try {
+          const data = JSON.parse(await input.files![0].text());
+          // only accept something that looks like our save
+          if (typeof data !== 'object' || !data.nodes || !data.facts) throw new Error('not a backup');
+          Object.assign(save, fresh(), data); commit();
+          fadeTo(this, 'boot');
+        } catch { importBtn.setText('Not a backup file'); importBtn.setColor('#c0392b'); }
+      };
+      input.click();
+    });
     let armed = false;
-    const reset = this.button(wx, 720, 'Reset progress', () => {
+    const reset = this.button(wx, 880, 'Reset progress', () => {
       if (!armed) { armed = true; reset.setText('Tap again to reset'); reset.setColor('#c0392b'); return; }
       Object.assign(save, fresh()); commit();
       fadeTo(this, 'boot');

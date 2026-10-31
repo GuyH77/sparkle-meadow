@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { answer, choices, fresh, pick, SKILLS, stage } from './engine';
+import { answer, choices, fresh, gemsFor, pick, SKILLS, stage } from './engine';
 
 test('facts climb through CPA stages with fast correct answers and drop on mistakes', () => {
   const s = fresh();
@@ -32,4 +32,17 @@ test('choices contain the answer once, stay in range, and are unique', () => {
     c.forEach(v => expect(v >= 0 && v <= max).toBe(true));
     expect(c.length).toBe(4);
   }
+});
+
+test('new skills stay in range', () => {
+  for (const [t, a] of SKILLS.bridge.facts) expect(a < 10 && t > 10 && t <= 18 && t - a <= 9).toBe(true);
+  for (const [t, a] of SKILLS.nearDoubles.facts) expect(t - a).toBe(a + 1);
+  for (const [t, a] of SKILLS.teens.facts) expect(a === 10 && t > 10 && t < 20).toBe(true);
+});
+
+test('gems: one per new star plus one for playing, boss bonus only the first time', () => {
+  expect(gemsFor(3, 0, false)).toBe(4);
+  expect(gemsFor(2, 3, false)).toBe(1);
+  expect(gemsFor(3, 0, true)).toBe(7);
+  expect(gemsFor(3, 2, true)).toBe(2);
 });

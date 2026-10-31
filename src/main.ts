@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import '@fontsource/fredoka/600.css';
 import lines from './lines.json';
-import { cover, FONT, H, makeTextures, PETS, Pet, pressable, save, sfx, text, W } from './ui';
+import { cover, FONT, H, makeTextures, PETS, Pet, pressable, save, session, sfx, text, W } from './ui';
 import { ALL_NODES } from './world';
 import { AdoptScene } from './scenes/adopt';
 import { MapScene } from './scenes/map';
@@ -12,8 +12,12 @@ import { CherryScene } from './scenes/cherry';
 import { HopScene } from './scenes/hop';
 import { SanctuaryScene } from './scenes/sanctuary';
 import { GrownupsScene } from './scenes/grownups';
+import { BeadsScene } from './scenes/beads';
+import { MirrorScene } from './scenes/mirror';
+import { MemoryScene } from './scenes/memory';
 
-const BACKGROUNDS = ['map', 'forest', 'garden', 'pond', 'barn', 'orchard', 'river', 'clearing', 'sanctuary'];
+const BACKGROUNDS = ['map', 'forest', 'rivermap', 'mountain', 'garden', 'pond', 'barn', 'orchard', 'river', 'clearing', 'sanctuary', 'alpine', 'cabin'];
+const DECOR = ['flowerbed', 'tree', 'pond', 'bench', 'birdhouse', 'haybale', 'fountain', 'sunflowers', 'mushroomhouse', 'windmill'];
 // question-specific clips ("bond_10_3") load on first use; the rest are preloaded
 const CORE_LINES = Object.keys(lines).filter(k => !/_\d+_\d+$/.test(k));
 
@@ -29,7 +33,8 @@ class BootScene extends Phaser.Scene {
     PETS.forEach(p => this.load.image(`pet-${p}`, `${img}pets/${p}.webp`));
     new Set(ALL_NODES.map(n => n.animal)).forEach(a => this.load.image(`animal-${a}`, `${img}animals/${a}.webp`));
     BACKGROUNDS.forEach(b => this.load.image(`bg-${b}`, `${img}bg/${b}.webp`));
-    ['ladybird', 'basket', 'apple', 'acorn'].forEach(p => this.load.image(p, `${img}props/${p}.webp`));
+    ['ladybird', 'basket', 'apple', 'acorn', 'gift', 'gem'].forEach(p => this.load.image(p, `${img}props/${p}.webp`));
+    DECOR.forEach(d => this.load.image(`deco-${d}`, `${img}deco/${d}.webp`));
     CORE_LINES.forEach(k => this.load.audio('v_' + k, `assets/voice/${k}.mp3`));
   }
 
@@ -52,6 +57,7 @@ class BootScene extends Phaser.Scene {
       sfx.ding(this);
       if (!this.scale.isFullscreen) this.scale.startFullscreen();
       prefetchVoice();
+      session.start = Date.now();
       this.scene.start(save.pet ? 'map' : 'adopt');
     });
   }
@@ -72,7 +78,8 @@ const start = () => (window as unknown as { game: Phaser.Game }).game = new Phas
   backgroundColor: '#cfeec0',
   scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
   input: { activePointers: 2 },
-  scene: [BootScene, AdoptScene, MapScene, TenFrameScene, BubblesScene, FeedScene, CherryScene, HopScene, SanctuaryScene, GrownupsScene],
+  scene: [BootScene, AdoptScene, MapScene, TenFrameScene, BubblesScene, FeedScene, CherryScene, HopScene, BeadsScene, MirrorScene, MemoryScene,
+    SanctuaryScene, GrownupsScene],
 });
 
 // wait for the font so canvas text doesn't render in the fallback face

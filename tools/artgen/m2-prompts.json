@@ -1,0 +1,264 @@
+[
+ {
+  "name": "animal-otter",
+  "seed": 521,
+  "cutout": true,
+  "export": "animals/otter",
+  "size": 420,
+  "prompt": "a single adorable baby river otter sitting upright, sleek brown fur, long thin tapering tail, small round ears, whiskers, big shiny eyes, smiling, full body, centered, isolated on a plain solid white background",
+  "neg": "beaver, flat tail, thick outline, black outline"
+ },
+ {
+  "name": "animal-kingfisher",
+  "seed": 501,
+  "cutout": true,
+  "export": "animals/kingfisher",
+  "size": 420,
+  "prompt": "a single adorable baby kingfisher bird, bright blue and orange feathers, big shiny eyes, smiling, full body, centered, isolated on a plain solid white background"
+ },
+ {
+  "name": "animal-frog",
+  "seed": 502,
+  "cutout": true,
+  "export": "animals/frog",
+  "size": 420,
+  "prompt": "a single adorable baby green frog sitting, big shiny eyes, smiling, full body, centered, isolated on a plain solid white background"
+ },
+ {
+  "name": "animal-beaver",
+  "seed": 503,
+  "cutout": true,
+  "export": "animals/beaver",
+  "size": 420,
+  "prompt": "a single adorable baby beaver sitting, flat tail, two front teeth, big shiny eyes, smiling, full body, centered, isolated on a plain solid white background"
+ },
+ {
+  "name": "animal-cygnet",
+  "seed": 504,
+  "cutout": true,
+  "export": "animals/cygnet",
+  "size": 420,
+  "prompt": "a single adorable baby fluffy grey cygnet swan chick, big shiny eyes, smiling, full body, centered, isolated on a plain solid white background"
+ },
+ {
+  "name": "animal-turtle",
+  "seed": 505,
+  "cutout": true,
+  "export": "animals/turtle",
+  "size": 420,
+  "prompt": "a single adorable baby turtle, green shell, big shiny eyes, smiling, full body, centered, isolated on a plain solid white background"
+ },
+ {
+  "name": "animal-goatkid",
+  "seed": 506,
+  "cutout": true,
+  "export": "animals/goatkid",
+  "size": 420,
+  "prompt": "a single adorable baby mountain goat kid standing, white fur, tiny horns, big shiny eyes, smiling, full body, centered, isolated on a plain solid white background"
+ },
+ {
+  "name": "animal-marmot",
+  "seed": 507,
+  "cutout": true,
+  "export": "animals/marmot",
+  "size": 420,
+  "prompt": "a single adorable baby marmot sitting up, golden brown fur, big shiny eyes, smiling, full body, centered, isolated on a plain solid white background"
+ },
+ {
+  "name": "animal-cria",
+  "seed": 508,
+  "cutout": true,
+  "export": "animals/cria",
+  "size": 420,
+  "prompt": "a single adorable baby alpaca cria standing, fluffy cream wool, big shiny eyes, smiling, full body, centered, isolated on a plain solid white background"
+ },
+ {
+  "name": "animal-redpanda",
+  "seed": 531,
+  "cutout": true,
+  "export": "animals/redpanda",
+  "size": 420,
+  "prompt": "a single adorable baby red panda cub sitting, fluffy russet fur, striped tail, big shiny eyes, smiling, full body, centered, isolated on a plain solid white background",
+  "neg": "raccoon"
+ },
+ {
+  "name": "animal-yak",
+  "seed": 532,
+  "cutout": true,
+  "export": "animals/yak",
+  "size": 420,
+  "prompt": "a single adorable fluffy baby yak calf standing, shaggy brown fur, tiny horns, big shiny eyes, smiling, full body, centered, isolated on a plain solid white background",
+  "neg": "cow spots, bull"
+ },
+ {
+  "name": "animal-leopardcub",
+  "seed": 511,
+  "cutout": true,
+  "export": "animals/leopardcub",
+  "size": 420,
+  "prompt": "a single adorable baby snow leopard cub sitting, spotted pale grey fur, big shiny eyes, smiling, full body, centered, isolated on a plain solid white background"
+ },
+ {
+  "name": "deco-flowerbed",
+  "seed": 621,
+  "cutout": true,
+  "export": "deco/flowerbed",
+  "size": 360,
+  "prompt": "a single small wooden flower planter box full of colourful flowers, side view, soft painted illustration, centered, isolated on a plain solid white background",
+  "neg": "pattern, wallpaper, full frame, face"
+ },
+ {
+  "name": "deco-tree",
+  "seed": 601,
+  "cutout": true,
+  "export": "deco/tree",
+  "size": 360,
+  "prompt": "a single small round apple tree, soft painted illustration, centered, isolated on a plain solid white background",
+  "neg": "face, eyes, character, animal"
+ },
+ {
+  "name": "deco-pond",
+  "seed": 602,
+  "cutout": true,
+  "export": "deco/pond",
+  "size": 360,
+  "prompt": "a single small round garden pond with lily pads, seen from slightly above, soft painted illustration, centered, isolated on a plain solid white background",
+  "neg": "face, eyes, character, animal"
+ },
+ {
+  "name": "deco-bench",
+  "seed": 603,
+  "cutout": true,
+  "export": "deco/bench",
+  "size": 360,
+  "prompt": "a single wooden garden bench, soft painted illustration, centered, isolated on a plain solid white background",
+  "neg": "face, eyes, character, animal"
+ },
+ {
+  "name": "deco-birdhouse",
+  "seed": 604,
+  "cutout": true,
+  "export": "deco/birdhouse",
+  "size": 360,
+  "prompt": "a single wooden birdhouse on a pole, soft painted illustration, centered, isolated on a plain solid white background",
+  "neg": "face, eyes, character, animal"
+ },
+ {
+  "name": "deco-haybale",
+  "seed": 605,
+  "cutout": true,
+  "export": "deco/haybale",
+  "size": 360,
+  "prompt": "a single round hay bale, soft painted illustration, centered, isolated on a plain solid white background",
+  "neg": "face, eyes, character, animal"
+ },
+ {
+  "name": "deco-fountain",
+  "seed": 606,
+  "cutout": true,
+  "export": "deco/fountain",
+  "size": 360,
+  "prompt": "a single small stone water fountain, soft painted illustration, centered, isolated on a plain solid white background",
+  "neg": "face, eyes, character, animal"
+ },
+ {
+  "name": "deco-sunflowers",
+  "seed": 622,
+  "cutout": true,
+  "export": "deco/sunflowers",
+  "size": 360,
+  "prompt": "a single clump of three tall sunflowers with green leaves growing from a little mound of soil, side view, soft painted illustration, centered, isolated on a plain solid white background",
+  "neg": "face, background, field"
+ },
+ {
+  "name": "deco-mushroomhouse",
+  "seed": 623,
+  "cutout": true,
+  "export": "deco/mushroomhouse",
+  "size": 360,
+  "prompt": "a single tiny red-capped mushroom house with a round door and window, soft painted illustration, centered, isolated on a plain solid white background",
+  "neg": "face, eyes, thick outline, black outline, clip art"
+ },
+ {
+  "name": "deco-windmill",
+  "seed": 609,
+  "cutout": true,
+  "export": "deco/windmill",
+  "size": 360,
+  "prompt": "a single small wooden windmill, soft painted illustration, centered, isolated on a plain solid white background",
+  "neg": "face, eyes, character, animal"
+ },
+ {
+  "name": "prop-gift",
+  "seed": 701,
+  "cutout": true,
+  "export": "props/gift",
+  "size": 300,
+  "prompt": "a single wrapped present box with a big pink ribbon bow, soft painted illustration, centered, isolated on a plain solid white background",
+  "neg": "face, eyes"
+ },
+ {
+  "name": "prop-gem",
+  "seed": 711,
+  "cutout": true,
+  "export": "props/gem",
+  "size": 160,
+  "prompt": "a single shiny sparkling blue gem crystal, soft painted illustration, centered, isolated on a plain solid white background",
+  "neg": "face, eyes, ring, jewellery"
+ },
+ {
+  "name": "bg-rivermap-a",
+  "seed": 801,
+  "w": 1344,
+  "h": 768,
+  "export": "bg/rivermap-a",
+  "size": 1344,
+  "prompt": "wide view of a sunny river valley seen from slightly above, a wide gentle river with reeds and pebbles, grassy banks, willow trees at the edges, game world map background"
+ },
+ {
+  "name": "bg-rivermap-b",
+  "seed": 802,
+  "w": 1344,
+  "h": 768,
+  "export": "bg/rivermap-b",
+  "size": 1344,
+  "prompt": "wide view of a sunny river valley seen from slightly above, a wide gentle river with reeds and pebbles, grassy banks, willow trees at the edges, game world map background"
+ },
+ {
+  "name": "bg-mountain-a",
+  "seed": 811,
+  "w": 1344,
+  "h": 768,
+  "export": "bg/mountain-a",
+  "size": 1344,
+  "prompt": "wide view of sunny green alpine mountain meadows seen from slightly above, snowy peaks in the distance, wildflowers, rocks, open grassy middle, game world map background"
+ },
+ {
+  "name": "bg-mountain-b",
+  "seed": 812,
+  "w": 1344,
+  "h": 768,
+  "export": "bg/mountain-b",
+  "size": 1344,
+  "prompt": "wide view of sunny green alpine mountain meadows seen from slightly above, snowy peaks in the distance, wildflowers, rocks, open grassy middle, game world map background"
+ },
+ {
+  "name": "bg-alpine",
+  "seed": 821,
+  "w": 1344,
+  "h": 768,
+  "export": "bg/alpine",
+  "size": 1344,
+  "prompt": "wide view of a soft alpine flower meadow with butterflies, mountains far away, large open empty middle, game background"
+ },
+ {
+  "name": "bg-cabin",
+  "seed": 832,
+  "w": 1344,
+  "h": 768,
+  "export": "bg/cabin",
+  "size": 1344,
+  "prompt": "cosy inside of a wooden mountain cabin, warm fireplace on the side, rug on the floor, large open empty wall in the middle, game background",
+  "neg": "face, eyes, creature, character, animal, toy, doll, person"
+ }
+]

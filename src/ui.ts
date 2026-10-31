@@ -6,6 +6,8 @@ export const FONT = 'Fredoka, sans-serif';
 export const INK = '#5b3a29';
 export const save: Save = load();
 export const commit = () => persist(save);
+/** When this play session began (reset on the title screen), for the grown-ups' time limit. */
+export const session = { start: Date.now() };
 
 export const PETS = ['fox', 'bunny', 'puppy'] as const;
 

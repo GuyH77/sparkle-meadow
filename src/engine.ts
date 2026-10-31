@@ -16,6 +16,12 @@ export const SKILLS: Record<string, Skill> = {
   within10: { id: 'within10', facts: range(3, 10).flatMap(t => range(1, t - 1).map(a => [t, a] as Fact)) },
   oneMore: { id: 'oneMore', facts: range(1, 10).map(t => [t, t - 1] as Fact) },   // (t-1) + 1 = t
   oneLess: { id: 'oneLess', facts: range(1, 10).map(t => [t, 1] as Fact) },       // t - 1 = t-1
+  bonds20: { id: 'bonds20', facts: bonds(20) },
+  teens: { id: 'teens', facts: range(11, 19).map(t => [t, 10] as Fact) },          // 10 + u = t
+  // a + b crossing ten, e.g. 8 + 5: a 5..9, b 2..9, total 11..18
+  bridge: { id: 'bridge', facts: range(5, 9).flatMap(a => range(2, 9).filter(b => a + b > 10 && a + b <= 18).map(b => [a + b, a] as Fact)) },
+  doubles: { id: 'doubles', facts: range(1, 10).map(n => [2 * n, n] as Fact) },    // n + n = 2n (and half of 2n)
+  nearDoubles: { id: 'nearDoubles', facts: range(1, 9).map(n => [2 * n + 1, n] as Fact) }, // n + (n+1)
 };
 
 /** One fact = "a + ? = total". box 0 (new/shaky) .. 5 (fluent). */
@@ -26,6 +32,10 @@ export type Save = {
   facts: Record<string, FactRecord>;    // "total:a" -> record
   playMs: number;                       // total time in mini-games
   muted: boolean;
+  gems: number;                         // earned from stars, spent on decorations
+  decor: { id: string; x: number; y: number }[];  // decorations placed in the sanctuary
+  lastGift: string;                     // date (YYYY-MM-DD) of the last daily gift
+  limitMin: number;                     // session time limit in minutes, 0 = off
 };
 
 export const MAX_BOX = 5;
@@ -34,7 +44,7 @@ const KEY = 'sanctuary-v2';
 
 export const factKey = (total: number, a: number) => `${total}:${a}`;
 
-export function fresh(): Save { return { pet: null, nodes: {}, facts: {}, playMs: 0, muted: false }; }
+export function fresh(): Save { return { pet: null, nodes: {}, facts: {}, playMs: 0, muted: false, gems: 0, decor: [], lastGift: '', limitMin: 0 }; }
 
 export function load(): Save {
   try { return { ...fresh(), ...JSON.parse(localStorage.getItem(KEY) || '{}') }; }
@@ -92,3 +102,8 @@ export function choices(answer: number, max: number, count: number, rand = Math.
 }
 
 export function stars(wrong: number): number { return wrong <= 1 ? 3 : wrong <= 3 ? 2 : 1; }
+
+/** Gems for finishing a stop: one per star, a bonus for bosses, and only the improvement on a replay. */
+export function gemsFor(newStars: number, oldStars: number, boss: boolean): number {
+  return Math.max(0, newStars - oldStars) + (boss && !oldStars ? 3 : 0) + 1;
+}

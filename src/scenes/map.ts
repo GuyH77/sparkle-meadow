@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { burst, confetti, cover, fadeTo, Pet, roundButton, save, say, sfx, text, W } from '../ui';
+import { burst, commit, confetti, cover, fadeTo, H, Pet, roundButton, save, say, session, sfx, sized, text, W } from '../ui';
 import { MapNode, Realm, REALMS, realmDone, realmOpen } from '../world';
 
 const R = 72; // node badge radius
@@ -50,9 +50,13 @@ export class MapScene extends Phaser.Scene {
     const nextOpen = !!next && realmOpen(next, save.nodes);
     if (nextOpen) {
       const firstVisit = !next.nodes.some(n => save.nodes[n.id]);
-      const sign = roundButton(this, W - 110, 250, '🌲', () => fadeTo(this, 'map', { realm: next.id, intro: firstVisit }), 70);
+      const sign = roundButton(this, W - 110, 250, next.icon, () => fadeTo(this, 'map', { realm: next.id, intro: firstVisit }), 70);
       this.tweens.add({ targets: sign, angle: { from: -6, to: 6 }, duration: 600, yoyo: true, repeat: -1 });
     }
+
+    this.gemCounter();
+    if (save.limitMin && Date.now() - session.start > save.limitMin * 60000) return this.rest();
+    const gift = this.dailyGift();
 
     if (newly) {
       const a = animals.get(newly.id)!;
@@ -65,16 +69,55 @@ export class MapScene extends Phaser.Scene {
         const lines = [`rescued_${newly.animal}`];
         if (realmDone(realm, save.nodes)) {
           lines.push(realm.done);
-          if (next) lines.push('to_forest');
+          if (next) lines.push(`to_${next.id}`);
           this.time.delayedCall(2500, () => { confetti(this); sfx.fanfare(this); });
         } else lines.push('map_pick');
         say(this, ...lines);
       });
+    } else if (gift) {
+      this.time.delayedCall(400, () => say(this, 'gift_hi'));
     } else if (data.intro) {
       this.time.delayedCall(400, () => say(this, realm.intro, 'map_pick'));
     } else {
-      this.time.delayedCall(400, () => say(this, realmDone(realm, save.nodes) && nextOpen ? 'to_forest' : 'map_pick'));
+      this.time.delayedCall(400, () => say(this, realmDone(realm, save.nodes) && nextOpen ? `to_${next.id}` : 'map_pick'));
     }
+  }
+
+  private gems!: Phaser.GameObjects.Text;
+  private gemCounter() {
+    const c = this.add.container(260, 80).setDepth(40);
+    c.add(this.add.rectangle(20, 0, 170, 76, 0xffffff, 0.9).setStrokeStyle(5, 0x8fd3ff));
+    c.add(sized(this, -30, 0, 'gem', 56));
+    this.gems = text(this, 45, 2, String(save.gems), 48);
+    c.add(this.gems);
+  }
+
+  /** Once a day a present waits on the map: tap it for five gems. */
+  private dailyGift(): boolean {
+    const today = new Date().toISOString().slice(0, 10);
+    if (save.lastGift === today) return false;
+    const g = sized(this, W / 2, 230, 'gift', 170).setDepth(45).setInteractive({ useHandCursor: true });
+    this.tweens.add({ targets: g, y: 210, angle: { from: -5, to: 5 }, duration: 500, yoyo: true, repeat: -1, ease: 'Sine.inOut' });
+    g.once('pointerup', () => {
+      save.lastGift = today; save.gems += 5; commit();
+      this.tweens.killTweensOf(g);
+      sfx.sparkle(this); burst(this, g.x, g.y, 50);
+      this.tweens.add({ targets: g, scale: g.scale * 1.4, alpha: 0, duration: 400, onComplete: () => g.destroy() });
+      this.gems.setText(String(save.gems));
+      this.tweens.add({ targets: this.gems, scale: 1.4, duration: 200, yoyo: true });
+      say(this, 'gift_open');
+    });
+    return true;
+  }
+
+  /** Grown-ups' time limit reached: the pet curls up for a nap and the map stops responding. */
+  private rest() {
+    this.add.rectangle(W / 2, H / 2, W, H, 0x1d2340, 0.55).setDepth(90).setInteractive();
+    const p = new Pet(this, W / 2, 760, 320);
+    p.img.setDepth(91).setTint(0xcfc6e8);
+    const z = text(this, W / 2 + 150, 420, 'z z z', 90, '#ffffff').setDepth(91);
+    this.tweens.add({ targets: z, y: 380, alpha: 0.3, duration: 1500, yoyo: true, repeat: -1 });
+    this.time.delayedCall(400, () => say(this, 'rest'));
   }
 
   /** Stepping-stone dots along a smooth curve through the stops. */

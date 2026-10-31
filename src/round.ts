@@ -1,10 +1,10 @@
 import Phaser from 'phaser';
-import { answer, choices, Fact, pick, SKILLS, stars } from './engine';
+import { answer, choices, Fact, gemsFor, pick, SKILLS, stars } from './engine';
 import type { MapNode, Part } from './world';
 import { realmOf } from './world';
 import {
   burst, commit, confetti, cover, ensureVoice, fadeTo, H, homeButton, numberCard, Pet, randomLine, replayButton,
-  save, say, sfx, W, wobble,
+  save, say, sfx, sized, text, W, wobble,
 } from './ui';
 
 export type RoundData = { node: MapNode; part?: number; wrong?: number };
@@ -168,16 +168,17 @@ export abstract class RoundScene extends Phaser.Scene {
         fadeTo(this, parts[part + 1].game, { node: this.node, part: part + 1, wrong: this.wrongTotal }));
       return;
     }
-    const s = stars(this.wrongTotal), id = this.node.id;
-    const newly = !save.nodes[id];
-    save.nodes[id] = Math.max(save.nodes[id] ?? 0, s);
+    const s = stars(this.wrongTotal), id = this.node.id, old = save.nodes[id] ?? 0;
+    const gems = gemsFor(s, old, !!parts);
+    save.nodes[id] = Math.max(old, s);
+    save.gems += gems;
     commit();
-    finishRound(this, s, () => fadeTo(this, 'map', { realm: realmOf(id).id, justDone: id, newly }));
+    finishRound(this, s, gems, () => fadeTo(this, 'map', { realm: realmOf(id).id, justDone: id, newly: !old }));
   }
 }
 
 /** End-of-round celebration: stars drop in one by one, confetti, voice. */
-export function finishRound(scene: Phaser.Scene, s: number, then: () => void) {
+export function finishRound(scene: Phaser.Scene, s: number, gems: number, then: () => void) {
   scene.input.enabled = false;
   scene.add.rectangle(W / 2, H / 2, W, H, 0xffffff, 0.55).setDepth(70);
   for (let i = 0; i < 3; i++) {
@@ -186,5 +187,9 @@ export function finishRound(scene: Phaser.Scene, s: number, then: () => void) {
     scene.tweens.add({ targets: st, scale: 1.3, angle: 360, delay: 300 + i * 350, duration: 500, ease: 'Back.out', onStart: () => { if (i < s) sfx.ding(scene); } });
   }
   confetti(scene);
+  // gems pop out under the stars
+  const g = scene.add.container(W / 2, H / 2 + 170).setDepth(71).setAlpha(0);
+  g.add([sized(scene, -60, 0, 'gem', 90), text(scene, 40, 0, `+${gems}`, 80)]);
+  scene.tweens.add({ targets: g, alpha: 1, y: g.y - 20, delay: 1500, duration: 400, ease: 'Back.out', onStart: () => sfx.sparkle(scene) });
   scene.time.delayedCall(1400, () => { sfx.fanfare(scene); say(scene, 'round_done').then(() => scene.time.delayedCall(400, then)); });
 }

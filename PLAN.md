@@ -125,4 +125,4 @@ M0 is deliberately small and polished. v1 went wide and shallow; this time the f
 
 - **M0** done (2026-10-31).
 - **M1** done (2026-10-31): Meadow + Forest (12 stops incl. 2 bosses), Ten-Frame, Bubble Pairs, Feed the Animal, Cherry Split, Pet Hop; sanctuary + sticker book; grown-ups dashboard. Live at https://guyh77.github.io/sparkle-meadow/ (auto-deploys from `v2`).
-- Deferred from M1 plan: session time limit, export/import backup (grown-ups area).
+- **M2** done (2026-10-31): River (teens, bonds to 20, bridging) + Mountains (doubles, halves, near doubles); new games Bead Slider, Butterfly Doubles, Memory Match (8 total); ten-frame, hop, bubbles and feed go to 20; gems, daily gift, sanctuary shop with draggable decorations; grown-ups time limit and backup save/load.

@@ -3,7 +3,7 @@ import { Fact, stage } from '../engine';
 import { RoundScene } from '../round';
 import { save, say, sfx, text, W } from '../ui';
 
-const CELL = 128, GAP = 14;
+const GAP = 14;
 
 /**
  * Ten-frame (or five-frame) bonds. Stage per fact (from the engine):
@@ -19,9 +19,10 @@ export class TenFrameScene extends RoundScene {
   begin() { this.shownFillHelp = false; this.next(); }
 
   ask([total, a]: Fact) {
-    const b = total - a, st = stage(save, total, a), L = this.layer;
-    const cols = 5, rows = total / 5;
-    const fw = cols * CELL + (cols - 1) * GAP, fh = rows * CELL + (rows - 1) * GAP;
+    // up to 20: a double ten-frame (two 2x5 frames side by side); dragging 20 bugs is too fiddly, so no concrete stage
+    const big = total > 10, CELL = big ? 100 : 128, cols = big ? 10 : 5, rows = big ? 2 : total / 5, SPLIT = big ? 44 : 0;
+    const b = total - a, st = big ? Math.max(1, stage(save, total, a)) as 1 | 2 : stage(save, total, a), L = this.layer;
+    const fw = cols * CELL + (cols - 1) * GAP + SPLIT, fh = rows * CELL + (rows - 1) * GAP;
     const fx = W / 2 - fw / 2, fy = (st === 0 ? 330 : 360) - fh / 2;
 
     const board = this.add.graphics();
@@ -31,7 +32,8 @@ export class TenFrameScene extends RoundScene {
     const frame = this.add.container(0, 0, [board]);
     L.add(frame);
     const cells = [...Array(total)].map((_, i) => {
-      const x = fx + (i % cols) * (CELL + GAP) + CELL / 2, y = fy + Math.floor(i / cols) * (CELL + GAP) + CELL / 2;
+      const col = big ? (i % 10) % 5 + Math.floor(i / 10) * 5 : i % 5, row = big ? Math.floor((i % 10) / 5) : Math.floor(i / 5);
+      const x = fx + col * (CELL + GAP) + (col >= 5 ? SPLIT : 0) + CELL / 2, y = fy + row * (CELL + GAP) + CELL / 2;
       const r = this.add.rectangle(x, y, CELL, CELL, 0xffffff).setStrokeStyle(5, 0xe2b98a);
       frame.add(r);
       return { x, y, r, filled: i < a, mine: false };
