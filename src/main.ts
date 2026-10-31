@@ -34,7 +34,8 @@ class BootScene extends Phaser.Scene {
     const play = this.add.container(W / 2, 850);
     play.add(this.add.circle(0, 6, 90, 0x000000, 0.15));
     play.add(this.add.circle(0, 0, 90, 0x7ccf5e).setStrokeStyle(10, 0xffffff));
-    play.add(this.add.triangle(10, 0, -28, -40, -28, 40, 42, 0, 0xffffff));
+    // Phaser sizes a triangle from its points' positive extents, so keep them >= 0; +8 x centres it optically
+    play.add(this.add.triangle(8, 0, 0, 0, 0, 84, 72, 42, 0xffffff));
     play.setSize(180, 180).setDepth(5);
     this.tweens.add({ targets: play, scale: 1.08, duration: 700, yoyo: true, repeat: -1, ease: 'Sine.inOut' });
     pet.img.setY(640);
