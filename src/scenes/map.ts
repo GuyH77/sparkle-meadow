@@ -7,6 +7,18 @@ let lastRealm = REALMS[0].id;
 
 const done = (n: MapNode) => !!save.nodes[n.id];
 
+/** A greyscale copy of a texture, made once with a canvas filter. */
+function greyed(scene: Phaser.Scene, key: string) {
+  const grey = `${key}-grey`;
+  if (scene.textures.exists(grey)) return grey;
+  const src = scene.textures.get(key).getSourceImage() as HTMLImageElement;
+  const c = scene.textures.createCanvas(grey, src.width, src.height)!;
+  c.context.filter = 'grayscale(1)';
+  c.context.drawImage(src, 0, 0);
+  c.refresh();
+  return grey;
+}
+
 /** A realm map: colour returns as stops are completed; rescued animals move in beside their stop. */
 export class MapScene extends Phaser.Scene {
   private pet!: Pet;
@@ -20,10 +32,11 @@ export class MapScene extends Phaser.Scene {
     const unlocked = (i: number) => i === 0 || done(nodes[i - 1]);
     this.cameras.main.fadeIn(400, 255, 250, 240);
 
+    // a greyed copy underneath and the colour picture fading in on top (shader FX render black on some tablets)
+    cover(this, greyed(this, realm.bg));
     const bg = cover(this, realm.bg);
-    const colour = bg.preFX?.addColorMatrix();
     const progress = () => nodes.filter(done).length / nodes.length;
-    const setColour = (p: number) => { colour?.saturate(-(1 - p) * 0.85); };
+    const setColour = (p: number) => { bg.setAlpha(0.15 + p * 0.85); };
     const newly = data.newly ? nodes.find(n => n.id === data.justDone) : undefined;
     const shown = progress() - (newly ? 1 / nodes.length : 0);
     setColour(shown);

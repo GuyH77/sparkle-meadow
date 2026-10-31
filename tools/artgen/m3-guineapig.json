@@ -1,0 +1,10 @@
+[
+ {
+  "name": "pet-guineapig",
+  "seed": 42,
+  "cutout": true,
+  "export": "pets/guineapig",
+  "size": 640,
+  "prompt": "a single adorable baby guinea pig pet sitting and smiling, big shiny eyes, fluffy ginger and white fur, little pink nose, small round ears, full body, centered, isolated on a plain solid white background"
+ }
+]

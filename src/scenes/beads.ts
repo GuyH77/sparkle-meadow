@@ -61,7 +61,7 @@ export class BeadsScene extends RoundScene {
         beads.forEach(b => b.disableInteractive());
         if (wrong === 0) answer(save, t, a, true, Date.now() - t0);
         glow(0, t);
-        return this.right(make ? `bond_${t}_10` : `add_${t}_${a}`);
+        return this.right(make ? `bond_${t}_10` : `add_${t}_${a}`, wrong > 0);
       }
       wrong++; this.wrongTotal++;
       if (wrong === 1) answer(save, t, a, false, Date.now() - t0);

@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { burst, commit, confetti, cover, fadeTo, PETS, Pet, save, say, sfx, W } from '../ui';
 
-/** First launch: three pets peek out of baskets in the barn; she taps one to adopt it. */
+/** First launch: four pets peek out of baskets in the barn; she taps one to adopt it. */
 export class AdoptScene extends Phaser.Scene {
   constructor() { super('adopt'); }
 
@@ -12,10 +12,10 @@ export class AdoptScene extends Phaser.Scene {
     const all: Phaser.GameObjects.Image[] = [];
 
     PETS.forEach((p, i) => {
-      const x = W / 2 + (i - 1) * 440, y = 860;
-      const pet = new Pet(this, x, y - 60, 300, `pet-${p}`);
+      const x = W / 2 + (i - (PETS.length - 1) / 2) * 370, y = 860;
+      const pet = new Pet(this, x, y - 60, 270, `pet-${p}`);
       const basket = this.add.image(x, y, 'basket').setOrigin(0.5, 1);
-      basket.setScale(360 / basket.width);
+      basket.setScale(320 / basket.width);
       all.push(pet.img, basket);
       // basket hides the pet's lower half; pet bobs up to peek out
       this.tweens.add({ targets: pet.img, y: y - 190, duration: 900, delay: i * 300, yoyo: true, repeat: -1, ease: 'Sine.inOut' });

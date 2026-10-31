@@ -60,6 +60,11 @@ L = {
     "sanctuary_hi": "Welcome to our sanctuary! Tap the animals to say hello.",
     "book_hi": "This is your sticker book. Help more animals to fill it up!",
     "praise_1": "Brilliant!", "praise_2": "Super!", "praise_3": "You got it!", "praise_4": "Amazing!", "praise_5": "Well done!",
+    "idle_clue": "Take your time. Here's a clue!",
+    "slow_1": "Whoa, slow down! Let's look really carefully.", "slow_2": "No guessing! Let's look at it together.",
+    "encourage_1": "Good try! You can do it.", "encourage_2": "Nearly! Let's have a think.", "encourage_3": "That's OK, mistakes help us learn.",
+    "together": "This one's tricky. Let's do it together!",
+    "kept_1": "You kept trying. Well done!", "kept_2": "See? You worked it out!", "kept_3": "Great thinking! You didn't give up!",
     "oops_1": "Oops! Try again.", "oops_2": "Nearly! Have another go.", "oops_3": "Hmm, not quite. Try again!",
 }
 for n in range(1, 21):

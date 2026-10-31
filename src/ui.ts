@@ -9,7 +9,7 @@ export const commit = () => persist(save);
 /** When this play session began (reset on the title screen), for the grown-ups' time limit. */
 export const session = { start: Date.now() };
 
-export const PETS = ['fox', 'bunny', 'puppy'] as const;
+export const PETS = ['fox', 'bunny', 'puppy', 'guineapig'] as const;
 
 // ---------- layout ----------
 /** Image of `key` scaled so its width is `px`. */
@@ -67,6 +67,8 @@ export function say(scene: Phaser.Scene, ...keys: string[]): Promise<void> {
     snd.once('complete', end);
     snd.once('stop', end);
     snd.play();
+    // never wait forever: a suspended or glitching audio context would otherwise leave the cards locked
+    setTimeout(end, ((snd as Phaser.Sound.WebAudioSound).duration || 4) * 1000 + 1500);
   })), Promise.resolve()).then(() => { if (my === voiceToken) current = null; });
 }
 export const sayAgain = (scene: Phaser.Scene) => say(scene, ...lastSaid);

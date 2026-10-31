@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { factKey, fresh, MAX_BOX } from '../engine';
-import { commit, fadeTo, FONT, H, INK, roundButton, save, sfx, W } from '../ui';
+import { commit, fadeTo, FONT, H, INK, PETS, roundButton, save, sfx, sized, W } from '../ui';
 import { REALMS } from '../world';
 
 // box 0 (shaky) -> 5 (fluent); unseen facts are grey
@@ -75,16 +75,28 @@ export class GrownupsScene extends Phaser.Scene {
     this.label(x0 + 80 + HEAT.length * 44 + 10, ly, 'fluent    grey = not tried yet', 22, INK, 0);
 
     // open realms early (e.g. a Year 2 child skipping the meadow); earned progress is never taken away
-    this.label(x0, 890, 'Open realms:', 30, INK, 0);
+    this.label(x0, 865, 'Open realms:', 30, INK, 0);
     const realmBtns = REALMS.map((r, i) => {
       const x = x0 + 270 + i * 120;
-      const b = this.add.circle(x, 890, 46, 0xffffff).setStrokeStyle(6, 0xcccccc).setInteractive({ useHandCursor: true });
-      this.add.text(x, 890, r.icon, { fontSize: '44px' }).setOrigin(0.5);
+      const b = this.add.circle(x, 865, 42, 0xffffff).setStrokeStyle(6, 0xcccccc).setInteractive({ useHandCursor: true });
+      this.add.text(x, 865, r.icon, { fontSize: '40px' }).setOrigin(0.5);
       b.on('pointerup', () => { sfx.tap(this); save.unlockTo = i; this.jumpTo = r.id; commit(); paint(); });
       return b;
     });
     const paint = () => realmBtns.forEach((b, i) => b.setStrokeStyle(6, i <= save.unlockTo ? 0x7ccf5e : 0xcccccc).setFillStyle(i <= save.unlockTo ? 0xeaf8e2 : 0xffffff));
     paint();
+
+    // swap her pet companion (progress stays)
+    this.label(x0, 955, 'Pet:', 30, INK, 0);
+    const petBtns = PETS.map((p, i) => {
+      const x = x0 + 270 + i * 120;
+      const b = this.add.circle(x, 955, 42, 0xffffff).setInteractive({ useHandCursor: true });
+      sized(this, x, 955, `pet-${p}`, 74);
+      b.on('pointerup', () => { sfx.tap(this); save.pet = p; commit(); paintPets(); });
+      return b;
+    });
+    const paintPets = () => petBtns.forEach((b, i) => b.setStrokeStyle(6, PETS[i] === save.pet ? 0x7ccf5e : 0xcccccc).setFillStyle(PETS[i] === save.pet ? 0xeaf8e2 : 0xffffff));
+    paintPets();
 
     // what to practise
     const weak = Object.entries(save.facts).filter(([, r]) => r.seen > 0).sort((p, q) => p[1].box - q[1].box || q[1].seen - p[1].seen).slice(0, 5);

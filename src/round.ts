@@ -9,6 +9,7 @@ import {
 
 export type RoundData = { node: MapNode; part?: number; wrong?: number };
 const BOSS_QUESTIONS = 3, QUESTIONS = 6;
+const IDLE_MS = 15000, GUESS_MS = 1500; // ponytail: fixed thresholds, tune after watching her play
 
 /**
  * Shared shell for every mini-game: background, buttons, pet, progress dots, question queue from the
@@ -21,6 +22,8 @@ export abstract class RoundScene extends Phaser.Scene {
   pet!: Pet;
   queue: Fact[] = [];
   wrongTotal = 0;
+  /** Questions in a row she's needed help with. */
+  struggle = 0;
   layer!: Phaser.GameObjects.Container;
   private dots: Phaser.GameObjects.Arc[] = [];
   private done = 0;
@@ -41,6 +44,7 @@ export abstract class RoundScene extends Phaser.Scene {
     this.node = d.node;
     this.cfg = d.node.parts ? d.node.parts[d.part ?? 0] : d.node;
     this.wrongTotal = d.wrong ?? 0;
+    this.struggle = 0;
     this.done = 0;
     this.startedAt = Date.now();
     this.cameras.main.fadeIn(400, 255, 250, 240);
@@ -101,21 +105,29 @@ export abstract class RoundScene extends Phaser.Scene {
   }) {
     const [t, a] = o.fact, t0 = Date.now();
     const opts = choices(o.answer, o.max, o.count ?? 3, Math.random, o.also);
-    let wrong = 0;
+    let wrong = 0, lastTap = t0, clued = false, stuck = false;
     void ensureVoice(this, o.rightLine);
+    const clue = () => { clued = true; o.hint?.(); };
+    // she's stuck (no tap for a while): a gentle nudge and the clue, once
+    const idle = this.time.delayedCall(IDLE_MS, () => { if (!clued) { stuck = true; say(this, 'idle_clue', ...(o.hintLine ? [o.hintLine] : [])); clue(); } });
+    this.layer.once('destroy', () => idle.remove());
     const make = o.make ?? ((n, i, x, onTap) => numberCard(this, x, o.y ?? 800, n, i, onTap));
     const value = new Map<Phaser.GameObjects.Container, number>();
     const cards = opts.map((n, i) => {
       const c = make(n, i, W / 2 + (i - (opts.length - 1) / 2) * (o.gap ?? 200), card => {
         if (!cards.includes(card)) return;
+        idle.remove();
+        const guess = Date.now() - lastTap < GUESS_MS;
+        lastTap = Date.now();
         if (n === o.answer) {
           cards.forEach(x => x.disableInteractive());
-          if (wrong === 0) answer(save, t, a, true, Date.now() - t0);
+          if (wrong === 0) answer(save, t, a, true, Date.now() - t0, clued);
+          this.struggle = wrong || stuck ? this.struggle + 1 : 0;
           this.tweens.killTweensOf(card);
           this.tweens.add({ targets: card, scale: 1.25, y: card.y - 30, duration: 250, ease: 'Back.out' });
           burst(this, card.x, card.y);
           o.onRight?.();
-          return this.right(o.rightLine);
+          return this.right(o.rightLine, wrong > 0 || stuck);
         }
         wrong++; this.wrongTotal++;
         if (wrong === 1) answer(save, t, a, false, Date.now() - t0);
@@ -123,7 +135,13 @@ export abstract class RoundScene extends Phaser.Scene {
         this.tweens.add({ targets: card, alpha: 0.25, scale: 0.85, duration: 300 });
         card.disableInteractive();
         cards.splice(cards.indexOf(card), 1);
-        if (wrong === 1) { say(this, o.hintLine ?? randomLine('oops', 3)); o.hint?.(); }
+        if (wrong === 1) {
+          // a fast tap is a guess: slow her down. Either way the cards wait until the clue has been said.
+          const lines = [guess ? randomLine('slow', 2) : randomLine('encourage', 3), ...(o.hintLine ? [o.hintLine] : [])];
+          this.input.enabled = false;
+          say(this, ...lines).then(() => { this.input.enabled = true; lastTap = Date.now(); });
+          clue();
+        }
         else {
           const pulse = () => { const r = cards.find(c => value.get(c) === o.answer); if (r) this.tweens.add({ targets: r, scale: 1.15, duration: 400, yoyo: true, repeat: -1 }); };
           if (o.demo) { this.input.enabled = false; o.demo().then(() => { this.input.enabled = true; pulse(); }); } else pulse();
@@ -134,17 +152,21 @@ export abstract class RoundScene extends Phaser.Scene {
     });
     cards.forEach((c, i) => { const s = c.scale; c.setScale(0); this.tweens.add({ targets: c, scale: s, delay: 150 + i * 80, duration: 300, ease: 'Back.out' }); });
     this.layer.add(cards);
-    if (o.prompt) say(this, ...([] as string[]).concat(o.prompt));
+    const prompt = o.prompt ? ([] as string[]).concat(o.prompt) : [];
+    // two questions in a row went wrong: do the next one together, clue showing from the start
+    if (this.struggle >= 2) { prompt.unshift('together'); clue(); }
+    if (prompt.length) say(this, ...prompt);
     return cards;
   }
 
   /** Right answer: fanfare, pet hop, progress, say the fact, then the next question. */
-  right(line: string) {
+  right(line: string, persevered = false) {
     sfx.ding(this);
     this.pet.hop(2);
     this.tick();
     this.input.enabled = false;
-    say(this, line, ...(Math.random() < 0.35 ? [randomLine('praise', 5)] : [])).then(() => {
+    const praise = persevered ? [randomLine('kept', 3)] : Math.random() < 0.35 ? [randomLine('praise', 5)] : [];
+    say(this, line, ...praise).then(() => {
       this.input.enabled = true;
       commit();
       this.next();
