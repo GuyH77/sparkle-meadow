@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { factKey, fresh, MAX_BOX } from '../engine';
 import { commit, fadeTo, FONT, H, INK, roundButton, save, sfx, W } from '../ui';
+import { REALMS } from '../world';
 
 // box 0 (shaky) -> 5 (fluent); unseen facts are grey
 const HEAT = [0xf28b82, 0xf6ae7a, 0xfbd36b, 0xd8e57a, 0xa6dc7f, 0x5cbf6a];
@@ -12,7 +13,7 @@ export class GrownupsScene extends Phaser.Scene {
   create() {
     this.cameras.main.fadeIn(300, 255, 250, 240);
     this.add.rectangle(W / 2, H / 2, W, H, 0xfaf6ef);
-    roundButton(this, 80, 80, '🏠', () => fadeTo(this, 'map'));
+    roundButton(this, 80, 80, '🏠', () => fadeTo(this, 'map', this.jumpTo ? { realm: this.jumpTo, intro: true } : undefined));
     this.gate();
   }
 
@@ -47,6 +48,8 @@ export class GrownupsScene extends Phaser.Scene {
     });
   }
 
+  private jumpTo?: string;
+
   private dashboard() {
     const facts = Object.values(save.facts);
     const seen = facts.reduce((s, f) => s + f.seen, 0), right = facts.reduce((s, f) => s + f.right, 0);
@@ -70,6 +73,18 @@ export class GrownupsScene extends Phaser.Scene {
     this.label(x0, ly, 'shaky', 22, INK, 0);
     HEAT.forEach((c, i) => this.add.rectangle(x0 + 80 + i * 44, ly - 14, 40, 28, c).setOrigin(0));
     this.label(x0 + 80 + HEAT.length * 44 + 10, ly, 'fluent    grey = not tried yet', 22, INK, 0);
+
+    // open realms early (e.g. a Year 2 child skipping the meadow); earned progress is never taken away
+    this.label(x0, 890, 'Open realms:', 30, INK, 0);
+    const realmBtns = REALMS.map((r, i) => {
+      const x = x0 + 270 + i * 120;
+      const b = this.add.circle(x, 890, 46, 0xffffff).setStrokeStyle(6, 0xcccccc).setInteractive({ useHandCursor: true });
+      this.add.text(x, 890, r.icon, { fontSize: '44px' }).setOrigin(0.5);
+      b.on('pointerup', () => { sfx.tap(this); save.unlockTo = i; this.jumpTo = r.id; commit(); paint(); });
+      return b;
+    });
+    const paint = () => realmBtns.forEach((b, i) => b.setStrokeStyle(6, i <= save.unlockTo ? 0x7ccf5e : 0xcccccc).setFillStyle(i <= save.unlockTo ? 0xeaf8e2 : 0xffffff));
+    paint();
 
     // what to practise
     const weak = Object.entries(save.facts).filter(([, r]) => r.seen > 0).sort((p, q) => p[1].box - q[1].box || q[1].seen - p[1].seen).slice(0, 5);

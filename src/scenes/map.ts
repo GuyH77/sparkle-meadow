@@ -47,7 +47,7 @@ export class MapScene extends Phaser.Scene {
     roundButton(this, W - 60, 60, '⚙️', () => fadeTo(this, 'grownups'), 36).setAlpha(0.7);
     const i = REALMS.indexOf(realm), prev = REALMS[i - 1], next = REALMS[i + 1];
     if (prev) roundButton(this, 80, 220, '⬅️', () => fadeTo(this, 'map', { realm: prev.id }));
-    const nextOpen = !!next && realmOpen(next, save.nodes);
+    const nextOpen = !!next && realmOpen(next, save.nodes, save.unlockTo);
     if (nextOpen) {
       const firstVisit = !next.nodes.some(n => save.nodes[n.id]);
       const sign = roundButton(this, W - 110, 250, next.icon, () => fadeTo(this, 'map', { realm: next.id, intro: firstVisit }), 70);

@@ -63,7 +63,7 @@ export const REALMS: Realm[] = [
 export const ALL_NODES = REALMS.flatMap(r => r.nodes);
 export const realmOf = (nodeId: string) => REALMS.find(r => r.nodes.some(n => n.id === nodeId))!;
 export const realmDone = (r: Realm, nodes: Record<string, number>) => r.nodes.every(n => nodes[n.id]);
-export const realmOpen = (r: Realm, nodes: Record<string, number>) => {
+export const realmOpen = (r: Realm, nodes: Record<string, number>, unlockTo = 0) => {
   const i = REALMS.indexOf(r);
-  return i === 0 || realmDone(REALMS[i - 1], nodes);
+  return i <= unlockTo || realmDone(REALMS[i - 1], nodes);
 };

@@ -36,6 +36,7 @@ export type Save = {
   decor: { id: string; x: number; y: number }[];  // decorations placed in the sanctuary
   lastGift: string;                     // date (YYYY-MM-DD) of the last daily gift
   limitMin: number;                     // session time limit in minutes, 0 = off
+  unlockTo: number;                     // grown-ups can open realms up to this index without finishing earlier ones
 };
 
 export const MAX_BOX = 5;
@@ -44,7 +45,7 @@ const KEY = 'sanctuary-v2';
 
 export const factKey = (total: number, a: number) => `${total}:${a}`;
 
-export function fresh(): Save { return { pet: null, nodes: {}, facts: {}, playMs: 0, muted: false, gems: 0, decor: [], lastGift: '', limitMin: 0 }; }
+export function fresh(): Save { return { pet: null, nodes: {}, facts: {}, playMs: 0, muted: false, gems: 0, decor: [], lastGift: '', limitMin: 0, unlockTo: 0 }; }
 
 export function load(): Save {
   try { return { ...fresh(), ...JSON.parse(localStorage.getItem(KEY) || '{}') }; }
