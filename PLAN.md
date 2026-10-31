@@ -120,3 +120,9 @@ M0 is deliberately small and polished. v1 went wide and shallow; this time the f
 | Art | **AI-generated** | Needs the image-generation connector signed in via `/mcp` before M0 art work. |
 | Voice | **Generated natural voice** | About 300 pre-generated lines plus number clips. |
 | School year | **Year 2 (a very young Y2)** | Realms 1–2 become a short, confidence-building consolidation of Year 1, with placement checks that skip nodes she already knows. The main focus is Realms 3–6; Realm 7 is the stretch. Pacing stays gentle: concrete stage first, longer, no speed modes until facts are secure. |
+
+## Status
+
+- **M0** done (2026-10-31).
+- **M1** done (2026-10-31): Meadow + Forest (12 stops incl. 2 bosses), Ten-Frame, Bubble Pairs, Feed the Animal, Cherry Split, Pet Hop; sanctuary + sticker book; grown-ups dashboard. Live at https://guyh77.github.io/sparkle-meadow/ (auto-deploys from `v2`).
+- Deferred from M1 plan: session time limit, export/import backup (grown-ups area).

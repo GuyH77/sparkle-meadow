@@ -8,6 +8,7 @@ prompts.json entries:
   {"name": "pet-fox", "prompt": "...", "w": 1024, "h": 1024, "seed": 1,
    "cutout": true,                     # remove background -> art/cut/<name>.png
    "erase": [[[x, y], ...], ...],      # optional polygons (raw px) forced transparent
+   "neg": "face, legs",                # optional extra negative prompt for this entry
    "export": "pets/fox", "size": 512}  # optional -> ../../public/assets/img/<export>.webp, longest side = size
 Pass names to process only those entries.
 """
@@ -107,7 +108,7 @@ def main():
     pipe = load_pipe()
     for e in entries:
         t0 = time.time()
-        neg = NEGATIVE + (", " + SPRITE_NEGATIVE if e.get("cutout") else "")
+        neg = NEGATIVE + (", " + SPRITE_NEGATIVE if e.get("cutout") else "") + (", " + e["neg"] if "neg" in e else "")
         img = pipe(
             prompt=f"{e['prompt']}, {STYLE}",
             negative_prompt=neg,

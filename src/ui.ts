@@ -10,6 +10,12 @@ export const commit = () => persist(save);
 export const PETS = ['fox', 'bunny', 'puppy'] as const;
 
 // ---------- layout ----------
+/** Image of `key` scaled so its width is `px`. */
+export const sized = (scene: Phaser.Scene, x: number, y: number, key: string, px: number) => {
+  const img = scene.add.image(x, y, key);
+  return img.setScale(px / img.width);
+};
+
 export function cover(scene: Phaser.Scene, key: string) {
   const img = scene.add.image(W / 2, H / 2, key);
   return img.setScale(Math.max(W / img.width, H / img.height));
@@ -34,12 +40,24 @@ let voiceToken = 0;
 let current: Phaser.Sound.BaseSound | null = null;
 let lastSaid: string[] = [];
 
+/** Voice clips load on first use (500+ of them, too many to preload). */
+export function ensureVoice(scene: Phaser.Scene, k: string): Promise<void> {
+  const key = 'v_' + k;
+  if (scene.cache.audio.exists(key)) return Promise.resolve();
+  return new Promise(res => {
+    scene.load.audio(key, `assets/voice/${k}.mp3`);
+    scene.load.once(`filecomplete-audio-${key}`, () => res());
+    scene.load.once('loaderror', () => res()); // ponytail: a missing clip is skipped, not fatal
+    scene.load.start();
+  });
+}
+
 export function say(scene: Phaser.Scene, ...keys: string[]): Promise<void> {
   const my = ++voiceToken;
   current?.stop();
   lastSaid = keys;
-  return keys.reduce<Promise<void>>((p, k) => p.then(() => new Promise<void>(done => {
-    if (my !== voiceToken) return done();
+  return keys.reduce<Promise<void>>((p, k) => p.then(() => ensureVoice(scene, k)).then(() => new Promise<void>(done => {
+    if (my !== voiceToken || !scene.cache.audio.exists('v_' + k)) return done();
     const snd = scene.sound.add('v_' + k);
     current = snd;
     let finished = false;

@@ -1,0 +1,156 @@
+[
+ {
+  "name": "animal-piglet",
+  "seed": 200,
+  "cutout": true,
+  "export": "animals/piglet",
+  "size": 420,
+  "prompt": "a single adorable baby pink piglet standing, curly tail, big shiny eyes, smiling, full body, centered, isolated on a plain solid white background"
+ },
+ {
+  "name": "animal-chick",
+  "seed": 201,
+  "cutout": true,
+  "export": "animals/chick",
+  "size": 420,
+  "prompt": "a single adorable baby fluffy yellow chick standing, big shiny eyes, smiling, full body, centered, isolated on a plain solid white background"
+ },
+ {
+  "name": "animal-calf",
+  "seed": 202,
+  "cutout": true,
+  "export": "animals/calf",
+  "size": 420,
+  "prompt": "a single adorable baby brown and white calf standing, big shiny eyes, smiling, full body, centered, isolated on a plain solid white background"
+ },
+ {
+  "name": "animal-squirrel",
+  "seed": 203,
+  "cutout": true,
+  "export": "animals/squirrel",
+  "size": 420,
+  "prompt": "a single adorable baby red squirrel sitting, big bushy tail, big shiny eyes, smiling, full body, centered, isolated on a plain solid white background"
+ },
+ {
+  "name": "animal-owl",
+  "seed": 204,
+  "cutout": true,
+  "export": "animals/owl",
+  "size": 420,
+  "prompt": "a single adorable baby owlet sitting, soft brown and cream feathers, big shiny eyes, smiling, full body, centered, isolated on a plain solid white background"
+ },
+ {
+  "name": "animal-fawn",
+  "seed": 205,
+  "cutout": true,
+  "export": "animals/fawn",
+  "size": 420,
+  "prompt": "a single adorable baby deer fawn standing, white spots, big shiny eyes, smiling, full body, centered, isolated on a plain solid white background"
+ },
+ {
+  "name": "animal-badger",
+  "seed": 251,
+  "cutout": true,
+  "export": "animals/badger",
+  "size": 420,
+  "prompt": "a single adorable baby european badger cub standing, soft grey fur body, black and white striped face, big shiny eyes, smiling, full body, centered, isolated on a plain solid white background",
+  "neg": "zebra, skunk, striped body"
+ },
+ {
+  "name": "animal-mouse",
+  "seed": 207,
+  "cutout": true,
+  "export": "animals/mouse",
+  "size": 420,
+  "prompt": "a single adorable baby field mouse sitting, round ears, pink nose, big shiny eyes, smiling, full body, centered, isolated on a plain solid white background"
+ },
+ {
+  "name": "animal-bearcub",
+  "seed": 208,
+  "cutout": true,
+  "export": "animals/bearcub",
+  "size": 420,
+  "prompt": "a single adorable baby brown bear cub sitting, big shiny eyes, smiling, full body, centered, isolated on a plain solid white background"
+ },
+ {
+  "name": "prop-apple",
+  "seed": 302,
+  "cutout": true,
+  "export": "props/apple",
+  "size": 200,
+  "prompt": "a single shiny round red apple with a short stem and one tiny leaf, soft painted illustration, centered, isolated on a plain solid white background",
+  "neg": "face, eyes, many leaves, branch"
+ },
+ {
+  "name": "prop-acorn",
+  "seed": 312,
+  "cutout": true,
+  "export": "props/acorn",
+  "size": 200,
+  "prompt": "a single simple acorn nut with a textured brown cap, soft painted illustration, centered, isolated on a plain solid white background",
+  "neg": "face, eyes, mouth, arms, legs, character, thick outline"
+ },
+ {
+  "name": "bg-forest-a",
+  "seed": 401,
+  "w": 1344,
+  "h": 768,
+  "export": "bg/forest-a",
+  "size": 1344,
+  "prompt": "wide view of a sunny enchanted forest clearing seen from slightly above, soft mossy ground, tall friendly trees at the edges, mushrooms and ferns, dappled light, large open grassy middle, game world map background"
+ },
+ {
+  "name": "bg-forest-b",
+  "seed": 402,
+  "w": 1344,
+  "h": 768,
+  "export": "bg/forest-b",
+  "size": 1344,
+  "prompt": "wide view of a sunny enchanted forest clearing seen from slightly above, soft mossy ground, tall friendly trees at the edges, mushrooms and ferns, dappled light, large open grassy middle, game world map background"
+ },
+ {
+  "name": "bg-sanctuary-a",
+  "seed": 411,
+  "w": 1344,
+  "h": 768,
+  "export": "bg/sanctuary-a",
+  "size": 1344,
+  "prompt": "wide view of a sunny animal sanctuary farmyard, a cosy red barn on the left, wooden fences, hay bales, trees, a large open grassy foreground, game background"
+ },
+ {
+  "name": "bg-sanctuary-b",
+  "seed": 412,
+  "w": 1344,
+  "h": 768,
+  "export": "bg/sanctuary-b",
+  "size": 1344,
+  "prompt": "wide view of a sunny animal sanctuary farmyard, a cosy red barn on the left, wooden fences, hay bales, trees, a large open grassy foreground, game background"
+ },
+ {
+  "name": "bg-orchard",
+  "seed": 421,
+  "w": 1344,
+  "h": 768,
+  "export": "bg/orchard",
+  "size": 1344,
+  "prompt": "wide view of a sunny apple orchard with apple trees at the edges, soft grass, a large open empty middle, game background"
+ },
+ {
+  "name": "bg-river",
+  "seed": 431,
+  "w": 1344,
+  "h": 768,
+  "export": "bg/river",
+  "size": 1344,
+  "prompt": "wide view of a calm gentle river running left to right across the middle, grassy banks with flowers, soft blue water, game background"
+ },
+ {
+  "name": "bg-clearing",
+  "seed": 441,
+  "w": 1344,
+  "h": 768,
+  "export": "bg/clearing",
+  "size": 1344,
+  "prompt": "wide view of a soft mossy forest floor clearing with warm sunbeams, ferns and mushrooms at the edges, open empty centre, game background"
+ }
+]

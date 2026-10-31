@@ -21,7 +21,7 @@ async def main():
     OUT.mkdir(parents=True, exist_ok=True)
     for key, text in lines.items():
         dest = OUT / f"{key}.mp3"
-        if (only and key not in only) or (dest.exists() and not force):
+        if (only and key not in only) or (dest.exists() and dest.stat().st_size and not force):  # empty = interrupted write
             continue
         await edge_tts.Communicate(text, VOICE, rate=RATE, pitch=PITCH).save(str(dest))
         print(key)
