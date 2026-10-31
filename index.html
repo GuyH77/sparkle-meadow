@@ -1,26 +1,19 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#A855F7">
-  <link rel="manifest" href="/manifest.json">
-  <title>Sparkle Meadow ✨</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#8fcf7a">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon-192.png">
+  <title>Animal Sanctuary</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #cfeec0; overflow: hidden; touch-action: none; user-select: none; }
+    #game { width: 100vw; height: 100vh; }
+  </style>
 </head>
 <body>
-  <div id="app"></div>
-  <script src="activities/fill-frame.js"></script>
-  <script src="activities/make-pair.js"></script>
-  <script src="activities/match-bonds.js"></script>
-  <script src="activities/place-value.js"></script>
-  <script src="game.js"></script>
-  <script>
-    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
-  </script>
+  <div id="game"></div>
+  <script type="module" src="/src/main.ts"></script>
 </body>
 </html>

@@ -1,0 +1,8 @@
+[
+  {"name": "pet-fox", "seed": 7, "cutout": true,
+   "prompt": "a single adorable baby fox pet sitting and smiling, big shiny eyes, fluffy orange fur with cream chest, full body, centered, plain white background"},
+  {"name": "pet-bunny", "seed": 11, "cutout": true,
+   "prompt": "a single adorable baby bunny pet sitting and smiling, big shiny eyes, soft lilac fur, floppy ears, full body, centered, plain white background"},
+  {"name": "bg-meadow", "seed": 3, "w": 1344, "h": 768,
+   "prompt": "wide landscape of a sunny meadow with rolling green hills, wildflowers, a winding path and a small wooden fence, empty foreground, game background"}
+]

@@ -1,0 +1,190 @@
+[
+ {
+  "name": "pet-fox",
+  "seed": 7,
+  "cutout": true,
+  "export": "pets/fox",
+  "size": 640,
+  "erase": [
+   [
+    [
+     200,
+     0
+    ],
+    [
+     800,
+     0
+    ],
+    [
+     800,
+     168
+    ],
+    [
+     722,
+     172
+    ],
+    [
+     645,
+     232
+    ],
+    [
+     560,
+     224
+    ],
+    [
+     495,
+     230
+    ],
+    [
+     462,
+     248
+    ],
+    [
+     310,
+     194
+    ],
+    [
+     294,
+     206
+    ],
+    [
+     291,
+     240
+    ],
+    [
+     200,
+     240
+    ]
+   ]
+  ],
+  "prompt": "a single adorable baby fox pet sitting and smiling, big shiny eyes, fluffy orange fur with cream chest, full body, centered, plain white background"
+ },
+ {
+  "name": "pet-bunny",
+  "seed": 11,
+  "cutout": true,
+  "export": "pets/bunny",
+  "size": 640,
+  "prompt": "a single adorable baby bunny pet sitting and smiling, big shiny eyes, soft lilac fur, floppy ears, full body, centered, plain white background"
+ },
+ {
+  "name": "pet-puppy",
+  "seed": 21,
+  "cutout": true,
+  "export": "pets/puppy",
+  "size": 640,
+  "prompt": "a single adorable baby puppy pet sitting and smiling, big shiny eyes, fluffy golden fur with cream chest, floppy ears, full body, centered, isolated on a plain solid white background"
+ },
+ {
+  "name": "animal-lamb",
+  "seed": 31,
+  "cutout": true,
+  "export": "animals/lamb",
+  "size": 420,
+  "prompt": "a single adorable baby lamb standing and smiling, big shiny eyes, fluffy cream wool, full body, side three-quarter view, centered, isolated on a plain solid white background"
+ },
+ {
+  "name": "animal-duckling",
+  "seed": 41,
+  "cutout": true,
+  "export": "animals/duckling",
+  "size": 420,
+  "prompt": "a single adorable baby yellow duckling standing and smiling, big shiny eyes, fluffy yellow down, orange beak, full body, centered, isolated on a plain solid white background"
+ },
+ {
+  "name": "animal-hedgehog",
+  "seed": 51,
+  "cutout": true,
+  "export": "animals/hedgehog",
+  "size": 420,
+  "prompt": "a single adorable baby hedgehog standing and smiling, big shiny eyes, soft brown spines, pink nose, full body, centered, isolated on a plain solid white background"
+ },
+ {
+  "name": "bg-map-a",
+  "seed": 101,
+  "w": 1344,
+  "h": 768,
+  "export": "bg/map-a",
+  "size": 1344,
+  "prompt": "wide landscape of a sunny meadow seen from slightly above, a long winding dirt path snaking from the bottom left to the top right, rolling green hills, a small pond, wildflowers, trees at the edges, game world map background"
+ },
+ {
+  "name": "bg-map-b",
+  "seed": 102,
+  "w": 1344,
+  "h": 768,
+  "export": "bg/map-b",
+  "size": 1344,
+  "prompt": "wide landscape of a sunny meadow seen from slightly above, a long winding dirt path snaking from the bottom left to the top right, rolling green hills, a small pond, wildflowers, trees at the edges, game world map background"
+ },
+ {
+  "name": "bg-garden-a",
+  "seed": 111,
+  "w": 1344,
+  "h": 768,
+  "export": "bg/garden-a",
+  "size": 1344,
+  "prompt": "wide view of a sunny garden clearing with soft grass, flowers and bushes around the edges, a large empty open grassy area in the centre, soft focus, game background"
+ },
+ {
+  "name": "bg-garden-b",
+  "seed": 112,
+  "w": 1344,
+  "h": 768,
+  "export": "bg/garden-b",
+  "size": 1344,
+  "prompt": "wide view of a sunny garden clearing with soft grass, flowers and bushes around the edges, a large empty open grassy area in the centre, soft focus, game background"
+ },
+ {
+  "name": "bg-pond-a",
+  "seed": 121,
+  "w": 1344,
+  "h": 768,
+  "export": "bg/pond-a",
+  "size": 1344,
+  "prompt": "wide view of a calm sparkling pond in a meadow, lily pads and reeds at the edges, big soft blue sky with fluffy clouds, open empty middle, game background"
+ },
+ {
+  "name": "bg-pond-b",
+  "seed": 122,
+  "w": 1344,
+  "h": 768,
+  "export": "bg/pond-b",
+  "size": 1344,
+  "prompt": "wide view of a calm sparkling pond in a meadow, lily pads and reeds at the edges, big soft blue sky with fluffy clouds, open empty middle, game background"
+ },
+ {
+  "name": "bg-barn-a",
+  "seed": 131,
+  "w": 1344,
+  "h": 768,
+  "export": "bg/barn-a",
+  "size": 1344,
+  "prompt": "cosy inside of a wooden barn with hay bales at the sides, warm golden sunlight through a window, bunting, empty wooden floor in the centre, game background"
+ },
+ {
+  "name": "bg-barn-b",
+  "seed": 132,
+  "w": 1344,
+  "h": 768,
+  "export": "bg/barn-b",
+  "size": 1344,
+  "prompt": "cosy inside of a wooden barn with hay bales at the sides, warm golden sunlight through a window, bunting, empty wooden floor in the centre, game background"
+ },
+ {
+  "name": "counter-ladybird-a",
+  "seed": 61,
+  "cutout": true,
+  "export": "props/ladybird",
+  "size": 256,
+  "prompt": "a single cute cartoon ladybird beetle, three-quarter view, shiny red domed shell with round black spots, small black head with big cute eyes and a smile, tiny legs, centered, isolated on a plain solid white background"
+ },
+ {
+  "name": "prop-basket-b",
+  "seed": 74,
+  "cutout": true,
+  "export": "props/basket",
+  "size": 520,
+  "prompt": "a single empty round wicker picnic basket with a soft pink blanket inside, open top, no lid, no animal, painted illustration, centered, isolated on a plain solid white background"
+ }
+]
